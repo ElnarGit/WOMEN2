@@ -1,18 +1,63 @@
+{% load static  %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{{title}}</title>
+    <link type="text/css" href="#" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">c
 </head>
 <body>
+<table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+
 {% block mainmenu %}
-<ul>
-    {% for m in menu %}
-<li>{{m}}</li>
-    {% endfor %}
-</ul>
+    <div class="header">
+            <ul id="mainmenu" class="mainmenu">
+            <li class="logo"><a href="#"><div class="logo"></div></a> </li>
+{% for m in menu %}
+    {% if not forloop.last %}
+                <li><a href="#"> {{m.title}}</a> </li>
+    {% else %}
+             <li class="last"><a href="#"> {{m.title}}</a> </li>
+    {% endif %}
+{% endfor %}
+            </ul>
+            <div class="clear"></div>
+    </div>
 {% endblock mainmenu %}
 
-{% block content %}
-{% endblock %}
+<table class="table-content" border=0 cellpadding="0" cellspacing="0">
+<tr>
+
+    <td valign="top" class="left-chapters">
+    <ul id="leftchapters">
+        <li><a href="#">Актрисы</a> </li>
+        <li><a href="#">Певицы</a> </li>
+        <li><a href="#">Спортсменки</a> </li>
+        <li class="share">
+        <p>Наш канал</p>
+        <a class="share-yt" href="#"></a>
+        </li>
+    </ul>
+
+
+    <div class="content-text"
+   {% block content %}
+         {% endblock %}
+    </div>
+
+
+</td></tr></table>
+</td></tr>
+
+<tr><td valign="top">
+    <div id="footer">
+        <p> 2022 </p>
+    </div>
+</td></tr></table>
+
+
 </body>
 </html>
