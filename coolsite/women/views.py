@@ -1,41 +1,62 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound, Http404
+from django.shortcuts import render
 
 from .models import *
 
-menu = [{'title': "О сайте",'url_name': 'about'},
-        {'title': "Добавить статью",'url_name': 'add_page'},
-        {'title': "Обратная связь",'url_name': 'contact'},
-        {'title': "Войти",'url_name': 'login'}
-]
+menu = [{'title': 'О сайте','url_name': 'about'},
+        {'title': 'Добавить статью','url_name': 'add_page'},
+        {'title': 'Обратная связь','url_name': 'contact'},
+        {'title': 'Войти','url_name': 'login'}
+     ]
 
 def index(request):
+    cats = Category.objects.all()
     posts = Women.objects.all()
+
     context = {
         'posts': posts,
         'menu': menu,
-        'title': "Главная страница"
+        'title': "Главная страница",
+        'cat_selected': 0,
+        'cats': cats
     }
     return render(request,'women/index.html',context=context)
 
 def about(request):
-    return render(request,'women/about.html',{'menu':menu, 'title': 'О сайте'})
+    data = {
+        'menu': menu,
+        'title': 'О сайте',
+    }
+    return render(request, 'women/about.html', context=data)
 
 def addpage(request):
-    return HttpResponse("Добавление статьи")
-
+    return HttpResponseNotFound("Добавление статьи")
 
 def contact(request):
-    return HttpResponse("Обратная  связь")
-
+    return HttpResponseNotFound("Обратная связь")
 
 def login(request):
-    return HttpResponse("Авторизация")
+    return HttpResponseNotFound("Авторизация")
 
-
-def pageNotFound(request,exception):
-    return  HttpResponseNotFound('<h1>Страница не найдена</h1>')
-
+def pageNotFound(request, exception):
+    return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 def show_post(request,post_id):
-    return HttpResponse(f"Отоброжение статьи с id = {post_id}")
+    return HttpResponseNotFound(f"Отоброжение статьи с id = {post_id}")
+
+def show_category(request,cat_id):
+    cats = Category.objects.all()
+    posts = Women.objects.all()
+
+    if len(posts) == 0:
+        raise Http404
+
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'title': "Отображение по рубрикам",
+        'cat_selected': 0,
+        'cats': cats
+    }
+    return render(request, 'women/index.html', context=context)
+
