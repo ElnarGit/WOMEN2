@@ -10,7 +10,6 @@ menu = [{'title': 'О сайте','url_name': 'about'},
      ]
 
 def index(request):
-    cats = Category.objects.all()
     posts = Women.objects.all()
 
     context = {
@@ -18,7 +17,7 @@ def index(request):
         'menu': menu,
         'title': "Главная страница",
         'cat_selected': 0,
-        'cats': cats
+
     }
     return render(request,'women/index.html',context=context)
 
@@ -45,7 +44,7 @@ def show_post(request,post_id):
     return HttpResponseNotFound(f"Отоброжение статьи с id = {post_id}")
 
 def show_category(request,cat_id):
-    cats = Category.objects.all()
+
     posts = Women.objects.all()
 
     if len(posts) == 0:
@@ -56,7 +55,7 @@ def show_category(request,cat_id):
         'menu': menu,
         'title': "Отображение по рубрикам",
         'cat_selected': 0,
-        'cats': cats
+
     }
     return render(request, 'women/index.html', context=context)
 
