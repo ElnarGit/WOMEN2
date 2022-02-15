@@ -22,7 +22,7 @@ class Women(models.Model):
     class Meta:
         verbose_name = "Извесные спортсмены"
         verbose_name_plural = "Извесные спортсмены"
-        ordering = ['time_create','title']
+        #ordering = ['time_create','title']
 
 
 class Category(models.Model):
